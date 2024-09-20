@@ -1,4 +1,6 @@
-﻿using Domain.Entities;
+﻿using Domain.Common;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interface
 {
-    public interface IProductRepository : IRepositoryBaseAsync<Product,Guid>
+    public interface IProductRepository<TContext> : IRepositoryBaseAsync<Product, Guid, TContext>
+        where TContext : DbContext
     {
     }
 }

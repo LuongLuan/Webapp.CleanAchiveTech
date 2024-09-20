@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using Infrastructure.Entities;
+using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence
+namespace Domain.Persistence
 {
     public static class AppDbContextSeed
     {

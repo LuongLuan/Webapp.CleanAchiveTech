@@ -1,10 +1,11 @@
 ﻿using Application.Interface;
+using Infrastructure.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Web.API.Constants;
 using Web.API.CustomAtrribute;
-using Web.API.Model;
+using Web.API.DTO;
 
 namespace Web.API.Controllers
 {
@@ -12,21 +13,21 @@ namespace Web.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductService _productService;
 
-        public ProductController(IProductRepository repository)
+        public ProductController(IProductService productService)
         {
-            _repository = repository;
+            _productService = productService;
         }
 
         [HttpGet]
         [Authorize]
-        [CustomPolicy("bbbbb")]
+        [CustomPolicy(ConstantAPI.VIEW_PRODUCT)]
         public async Task<IActionResult> GetProduct(string productId)
         {
             // 6E8EFBB5-E59E-4C41-82A7-38AFC8F4EF4E
-            var result = await _repository.GetByIdAsync(new Guid(productId));
-            return new JsonResult(new APIResult
+            var result = await _productService.GetProductByIdAsync(new Guid(productId));
+            return new JsonResult(new APIResultDto
             {
                 Code = HttpStatusCode.OK,
                 Data = result

@@ -1,8 +1,8 @@
 ﻿using System.Net;
 
-namespace Web.API.Model
+namespace Web.API.DTO
 {
-    public class APIResult
+    public class APIResultDto
     {
         public HttpStatusCode Code { get; set; }
         public object? Data { get; set; } 

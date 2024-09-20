@@ -1,6 +1,6 @@
-﻿namespace Web.API.SettingConfiguration
+﻿namespace Infrastructure.DTO
 {
-    public class JwtTokenConfig
+    public class JwtTokenConfigDto
     {
         public const string EnvSectionName = "Jwt";
 

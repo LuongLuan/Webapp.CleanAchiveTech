@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Web.API.Model
+namespace Web.API.DTO
 {
-    public class UserInputModel
+    public class UserInputDto
     {
         public string Email { get; set; }
         public string Password { get; set; }

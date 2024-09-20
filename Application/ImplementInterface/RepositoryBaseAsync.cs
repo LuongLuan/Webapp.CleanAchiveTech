@@ -1,6 +1,5 @@
 ﻿using Application.Interface;
 using Domain.Common;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -10,14 +9,16 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Common
+namespace Application.ImplementInterface
 {
-    public class RepositoryBaseAsync<T, K> : IRepositoryBaseAsync<T, K> where T : BaseEntity<K>
+    public class RepositoryBaseAsync<T, K, TContext> : IRepositoryBaseAsync<T, K, TContext>
+        where T : BaseEntity<K>
+        where TContext : DbContext
     {
-        private readonly AppDbContext _dbContext;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly TContext _dbContext;
+        private readonly IUnitOfWork<TContext> _unitOfWork;
 
-        public RepositoryBaseAsync(AppDbContext dbContext, IUnitOfWork unitOfWork)
+        public RepositoryBaseAsync(TContext dbContext, IUnitOfWork<TContext> unitOfWork)
         {
             _dbContext = dbContext;
             _unitOfWork = unitOfWork;

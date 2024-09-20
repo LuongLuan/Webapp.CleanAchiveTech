@@ -1,7 +1,6 @@
-﻿using Domain.Common;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace Infrastructure.Entities
+namespace Domain.Entities
 {
     public class ApplicationUser : IdentityUser<Guid>
     {

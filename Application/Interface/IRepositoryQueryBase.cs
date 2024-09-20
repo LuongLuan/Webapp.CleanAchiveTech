@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace Application.Interface
 {
-    public interface IRepositoryQueryBase<T,in K> where T : BaseEntity<K>
+    public interface IRepositoryQueryBase<T, K, TContext> 
+        where T : BaseEntity<K>
+        where TContext : DbContext
     {
         IQueryable<T> FindAll(bool trackChanges = false);
         IQueryable<T> FindAll(bool trackChanges = false, params Expression<Func<T, object>>[] includeProperties);
@@ -19,8 +22,9 @@ namespace Application.Interface
         Task<T?> GetByIdAsync(K id);
         Task<T?> GetByIdAsync(K id, params Expression<Func<T, object>>[] includeProperties);
     }
-    public interface IRepositoryBaseAsync<T, K> : IRepositoryQueryBase<T, K>
+    public interface IRepositoryBaseAsync<T, K, TContext> : IRepositoryQueryBase<T, K, TContext>
         where T : BaseEntity<K>
+        where TContext : DbContext
     {
         Task<K> CreateAsync(T entity);
         Task<IList<K>> CreateListAsync(IEnumerable<T> entities);

@@ -1,19 +1,13 @@
 ﻿using Application.Interface;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Infrastructure.Common
+namespace Domain.Common
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork<TContext> : IUnitOfWork<TContext> where TContext : DbContext
     {
-        private AppDbContext _dbContext;
+        private TContext _dbContext;
 
-        public UnitOfWork(AppDbContext dbContext)
+        public UnitOfWork(TContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 
-namespace Infrastructure.Data.Configurations
+namespace Domain.Data.Configurations
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {

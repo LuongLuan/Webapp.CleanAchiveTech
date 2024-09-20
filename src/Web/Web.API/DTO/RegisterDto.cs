@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualBasic;
 
-namespace Web.API.Model
+namespace Web.API.DTO
 {
-    public class RegisterModel
+    public class RegisterDto
     {
         public string Email { get; set; } = "";
         public string Password { get; set; } = "";

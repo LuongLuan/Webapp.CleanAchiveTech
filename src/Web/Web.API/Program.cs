@@ -1,6 +1,7 @@
-using Infrastructure;
-using Infrastructure.Entities;
-using Infrastructure.Persistence;
+using Domain;
+using Domain.Entities;
+using Domain.Persistence;
+using Infrastructure.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
+using Web.API;
 using Web.API.Middleware;
-using Web.API.SettingConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +28,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
 #endregion
 
 #region Add authentication Jwt
-builder.Services.Configure<JwtTokenConfig>(
-    builder.Configuration.GetSection(JwtTokenConfig.EnvSectionName));
+builder.Services.Configure<JwtTokenConfigDto>(
+    builder.Configuration.GetSection(JwtTokenConfigDto.EnvSectionName));
 
 builder.Services.AddAuthentication(options =>
 {
@@ -86,6 +87,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 #endregion
 
+builder.Services.AddApplicationService();
 builder.Services.AddInfastructureService();
 // Add services to the container.
 builder.Services.AddAuthorization();
