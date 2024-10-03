@@ -7,6 +7,7 @@ using Application.ImplementInterface;
 using Application.Interface;
 using Domain.Common;
 using Domain.Entities;
+using Infrastructure.ImplementInterface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Web.API
@@ -15,10 +16,10 @@ namespace Web.API
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection service)
         {
-            service.AddScoped(typeof(IRepositoryQueryBase<,,>),typeof(RepositoryQueryBase<,,>));
-            service.AddTransient(typeof(IRepositoryBaseAsync<,,>),typeof(RepositoryBaseAsync<,,>));
-            service.AddScoped(typeof(IProductRepository<>), typeof(ProductRepository<>));
-            service.AddScoped(typeof(IUnitOfWork<>),typeof(UnitOfWork<>));
+            service.AddTransient(typeof(IRepositoryQueryBase<,>),typeof(RepositoryQueryBase<,>));
+            service.AddTransient(typeof(IRepositoryBaseAsync<,>),typeof(RepositoryBaseAsync<,>));
+            service.AddTransient<IProductRepository, ProductRepository>();
+            service.AddTransient<IUserRepostitory, UserRepository>();
 
             return service;
         }

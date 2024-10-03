@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interface
 {
-    public interface IProductRepository<TContext> : IRepositoryBaseAsync<Product, Guid, TContext>
-        where TContext : DbContext
+    public interface IProductRepository : IRepositoryBaseAsync<Product, Guid>
     {
     }
 }

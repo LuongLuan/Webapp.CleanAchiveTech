@@ -1,7 +1,7 @@
+using Application.DTO;
 using Domain;
 using Domain.Entities;
 using Domain.Persistence;
-using Infrastructure.DTO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,8 +28,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
 #endregion
 
 #region Add authentication Jwt
-builder.Services.Configure<JwtTokenConfigDto>(
-    builder.Configuration.GetSection(JwtTokenConfigDto.EnvSectionName));
+builder.Services.Configure<AppsettingDto>(
+    builder.Configuration.GetSection(AppsettingDto.EnvSectionName));
 
 builder.Services.AddAuthentication(options =>
 {
@@ -40,10 +40,10 @@ builder.Services.AddAuthentication(options =>
 {
     o.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["Appsettings:Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Appsettings:Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey
-        (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])),
+        (Encoding.UTF8.GetBytes(builder.Configuration["Appsettings:Jwt:SecretKey"])),
         ClockSkew =TimeSpan.Zero,
         ValidateIssuer = true,
         ValidateAudience = true,

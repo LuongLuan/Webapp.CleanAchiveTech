@@ -1,5 +1,6 @@
 ﻿using Application.Interface;
 using Domain.Common;
+using Domain.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,16 +9,15 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.ImplementInterface
+namespace Infrastructure.ImplementInterface
 {
-    public class RepositoryQueryBase<T, K, TContext> : IRepositoryQueryBase<T, K, TContext>
+    public class RepositoryQueryBase<T, K> : IRepositoryQueryBase<T, K>
         where T : BaseEntity<K>
-        where TContext : DbContext
 
     {
-        private readonly TContext _dbContext;
+        private readonly AppDbContext _dbContext;
 
-        public RepositoryQueryBase(TContext dbContext)
+        public RepositoryQueryBase(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }

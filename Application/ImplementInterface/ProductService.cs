@@ -1,16 +1,13 @@
 ﻿using Application.Interface;
-using Domain.Common;
 using Domain.Entities;
-using Domain.Persistence;
-using Infrastructure.Interface;
 
-namespace Infrastructure.ImplementInterface
+namespace Application.ImplementInterface
 {
     public class ProductService:IProductService
     {
-        private readonly IProductRepository<AppDbContext> _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ProductService(IProductRepository<AppDbContext> productRepository)
+        public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }

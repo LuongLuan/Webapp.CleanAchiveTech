@@ -1,6 +1,7 @@
 ﻿
+using Application.ImplementInterface;
+using Application.Interface;
 using Infrastructure.ImplementInterface;
-using Infrastructure.Interface;
 
 namespace Web.API
 {
@@ -8,8 +9,9 @@ namespace Web.API
     {
         public static IServiceCollection AddInfastructureService(this IServiceCollection service)
         {
-            service.AddScoped<IUserService, UserService>();
+            service.AddTransient<IUserService, UserService>();
             service.AddTransient<IProductService, ProductService>();
+            service.AddScoped<IUnitOfWork, UnitOfWork>();
             return service;
         }
     }

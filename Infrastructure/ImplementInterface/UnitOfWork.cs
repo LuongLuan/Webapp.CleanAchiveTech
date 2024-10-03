@@ -1,13 +1,14 @@
 ﻿using Application.Interface;
+using Domain.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain.Common
+namespace Infrastructure.ImplementInterface
 {
-    public class UnitOfWork<TContext> : IUnitOfWork<TContext> where TContext : DbContext
+    public class UnitOfWork : IUnitOfWork
     {
-        private TContext _dbContext;
+        private AppDbContext _dbContext;
 
-        public UnitOfWork(TContext dbContext)
+        public UnitOfWork(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }

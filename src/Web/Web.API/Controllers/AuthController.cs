@@ -3,15 +3,12 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using Web.API.DTO;
-using Infrastructure.Interface;
-using Infrastructure.DTO;
 using Infrastructure.IdentityExtension;
 using Web.API.Validation;
-using Infrastructure.Common;
+using Application.Interface;
+using Application.DTO;
 
 namespace Web.API.Controllers
 {
@@ -20,14 +17,14 @@ namespace Web.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly JwtTokenConfigDto _jwtTokenConfig;
+        private readonly AppsettingDto _appsettings;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public AuthController(
-            IOptions<JwtTokenConfigDto> jwtTokenConfig,
+            IOptions<AppsettingDto> appsettings,
             IHttpContextAccessor httpContextAccessor,
             IUserService userService)
         {
-            _jwtTokenConfig = jwtTokenConfig.Value;
+            _appsettings = appsettings.Value;
             _httpContextAccessor = httpContextAccessor;
             _userService = userService;
         }
@@ -48,7 +45,7 @@ namespace Web.API.Controllers
                     return new JsonResult(new { code = HttpStatusCode.Unauthorized });
                 }
 
-                var author = await _userService.AuthenticationAsync(user, loginInput.Password, _jwtTokenConfig);
+                var author = await _userService.AuthenticationAsync(user, loginInput.Password, _appsettings.JwtTokenConfigDto);
                 if (author.Succeeded)
                 {
                     return
@@ -77,7 +74,7 @@ namespace Web.API.Controllers
         [HttpPost]
         public async Task<IActionResult> RefreshToken(RefreshTokenDto refreshTokenInput)
         {
-            var result = await _userService.RefreshTokenAsync(refreshTokenInput.RefreshToken, _jwtTokenConfig);
+            var result = await _userService.RefreshTokenAsync(refreshTokenInput.RefreshToken, _appsettings.JwtTokenConfigDto);
 
             if (result.Succeeded)
             {
